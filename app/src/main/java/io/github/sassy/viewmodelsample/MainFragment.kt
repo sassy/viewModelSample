@@ -30,11 +30,11 @@ class MainFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.groupName.observe(this, Observer<String>{ name ->
+        viewModel.getGroupName().observe(this, Observer<String>{ name ->
             val label: TextView = root.findViewById(R.id.groupName)
             label.text = name
         })
-        viewModel.members.observe(this, Observer { items ->
+        viewModel.getMembers().observe(this, Observer { items ->
             root.findViewById<TextView>(R.id.member1).text = items[0].name
             root.findViewById<TextView>(R.id.member2).text = items[1].name
             root.findViewById<TextView>(R.id.member3).text = items[2].name
@@ -42,7 +42,6 @@ class MainFragment : Fragment() {
             root.findViewById<TextView>(R.id.member5).text = items[4].name
             root.findViewById<TextView>(R.id.member6).text = items[5].name
         })
-        viewModel.loadData()
     }
 
 }
