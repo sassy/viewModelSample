@@ -1,6 +1,6 @@
 package io.github.sassy.viewmodelsample
 
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -29,12 +29,12 @@ class MainFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        viewModel.getGroupName().observe(this, Observer<String>{ name ->
+        viewModel = ViewModelProvider.NewInstanceFactory().create(MainViewModel::class.java)
+        viewModel.getGroupName().observe(viewLifecycleOwner, Observer<String>{ name ->
             val label: TextView = root.findViewById(R.id.groupName)
             label.text = name
         })
-        viewModel.getMembers().observe(this, Observer { items ->
+        viewModel.getMembers().observe(viewLifecycleOwner, Observer { items ->
             root.findViewById<TextView>(R.id.member1).text = items[0].name
             root.findViewById<TextView>(R.id.member2).text = items[1].name
             root.findViewById<TextView>(R.id.member3).text = items[2].name
